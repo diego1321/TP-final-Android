@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Define el flujo de navegación de la aplicación.
+xmlns:app="http://schemas.android.com/apk/res-auto"
+-->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/listasFragment">
+
+    <!-- Pantalla 1: ListasFragment -->
+    <fragment
+        android:id="@+id/listasFragment"
+        android:name="com.example.tp_final_android.ui.listas.ListasFragment"
+        android:label="Listas"
+        tools:layout="@layout/fragment_listas">
+
+        <!-- Acción para ir de Pantalla 1 a Pantalla 2 (Tareas) -->
+        <action
+            android:id="@+id/action_listasFragment_to_tareasFragment"
+            app:destination="@id/tareasFragment" />
+
+        <!-- ACCIÓN: Para ir de Pantalla 1 a "Crear Lista" -->
+        <action
+            android:id="@+id/action_listasFragment_to_crearListaFragment"
+            app:destination="@id/crearListaFragment" />
+    </fragment>
+
+    <!-- Pantalla 2: TareasFragment -->
+    <fragment
+        android:id="@+id/tareasFragment"
+        android:name="com.example.tp_final_android.ui.tareas.TareasFragment"
+        android:label="Tareas"
+        tools:layout="@layout/fragment_tareas">
+
+        <!-- Argumento para recibir el título de la lista -->
+        <argument
+            android:name="listTitle"
+            app:argType="string"
+            android:defaultValue="Lista" />
+
+        <!-- Acción para ir de Pantalla 2 a Pantalla 3 (Crear Tarea) -->
+        <action
+            android:id="@+id/action_tareasFragment_to_crearTareaFragment"
+            app:destination="@id/crearTareaFragment" />
+    </fragment>
+
+    <!-- Pantalla 3: CrearTareaFragment -->
+    <fragment
+        android:id="@+id/crearTareaFragment"
+        android:name="com.example.tp_final_android.ui.tareas.CrearTareaFragment"
+        android:label="Crear Tarea"
+        tools:layout="@layout/fragment_crear_tarea" />
+
+    <!-- FRAGMENTO: Pantalla de "Crear Lista" -->
+    <fragment
+        android:id="@+id/crearListaFragment"
+        android:name="com.example.tp_final_android.ui.listas.CrearListaFragment"
+        android:label="Crear Lista"
+        tools:layout="@layout/fragment_crear_lista" />
+
+</navigation>
+
