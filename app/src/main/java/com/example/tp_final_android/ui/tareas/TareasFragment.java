@@ -9,17 +9,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider; // Importar ViewModelProvider
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.LinearLayoutManager; // Importar LayoutManager
-import androidx.recyclerview.widget.RecyclerView; // Importar RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.tp_final_android.R;
 
 /**
  * Fragmento para la pantalla de Tareas (la segunda pantalla del Figma).
  * Ahora muestra un RecyclerView con la lista de tareas.
  */
-public class TareasFragment extends Fragment implements TareasAdapter.OnTaskListener { // 1. Implementar interfaz
+public class TareasFragment extends Fragment implements TareasAdapter.OnTaskListener {
 
     private TareasViewModel viewModel;
     private TareasAdapter adapter;
@@ -29,7 +29,7 @@ public class TareasFragment extends Fragment implements TareasAdapter.OnTaskList
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Inflar el layout (fragment_tareas.xml, que ahora tiene el RecyclerView)
+        // Inflar el layout (fragment_tareas.xml, que ahora tiene el botón Volver)
         return inflater.inflate(R.layout.fragment_tareas, container, false);
     }
 
@@ -54,13 +54,19 @@ public class TareasFragment extends Fragment implements TareasAdapter.OnTaskList
                     .navigate(R.id.action_tareasFragment_to_crearTareaFragment);
         });
 
-        // 5. Observar la lista de tareas del ViewModel
+        // 5. MODIFICADO: Configurar el listener para el nuevo botón "Volver"
+        view.findViewById(R.id.btnVolver).setOnClickListener(v -> {
+            // Usar popBackStack() para volver a la pantalla anterior (ListasFragment)
+            NavHostFragment.findNavController(TareasFragment.this).popBackStack();
+        });
+
+        // 6. Observar la lista de tareas del ViewModel
         viewModel.getTasks().observe(getViewLifecycleOwner(), tasks -> {
             // Actualizar el adaptador cuando los datos cambien
             adapter.setTasks(tasks);
         });
 
-        // 6. Recibir y mostrar el Título de la Lista (lógica que ya teníamos)
+        // 7. Recibir y mostrar el Título de la Lista (lógica que ya teníamos)
         if (getArguments() != null) {
             String listTitle = getArguments().getString("listTitle", "Lista");
             tvListaTitulo.setText(listTitle);
