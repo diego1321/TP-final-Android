@@ -41,8 +41,9 @@ public class TareasFragment extends Fragment implements TareasAdapter.OnTaskList
         tvListaTitulo = view.findViewById(R.id.tvListaTitulo);
         recyclerViewTareas = view.findViewById(R.id.recyclerViewTareas);
 
-        // 2. Inicializar ViewModel (específico de este Fragment)
-        viewModel = new ViewModelProvider(this).get(TareasViewModel.class);
+        // 2. MODIFICADO: Inicializar ViewModel (ahora compartido con la Activity)
+        // Esto permite que TareasFragment y CrearTareaFragment compartan el mismo ViewModel.
+        viewModel = new ViewModelProvider(requireActivity()).get(TareasViewModel.class);
 
         // 3. Configurar el RecyclerView
         setupRecyclerView();
@@ -54,7 +55,7 @@ public class TareasFragment extends Fragment implements TareasAdapter.OnTaskList
                     .navigate(R.id.action_tareasFragment_to_crearTareaFragment);
         });
 
-        // 5. MODIFICADO: Configurar el listener para el nuevo botón "Volver"
+        // 5. Configurar el listener para el nuevo botón "Volver"
         view.findViewById(R.id.btnVolver).setOnClickListener(v -> {
             // Usar popBackStack() para volver a la pantalla anterior (ListasFragment)
             NavHostFragment.findNavController(TareasFragment.this).popBackStack();
