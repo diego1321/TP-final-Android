@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 Define el flujo de navegación de la aplicación.
-xmlns:app="http://schemas.android.com/apk/res-auto"
 -->
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,7 +20,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/action_listasFragment_to_tareasFragment"
             app:destination="@id/tareasFragment" />
 
-        <!-- ACCIÓN: Para ir de Pantalla 1 a "Crear Lista" -->
+        <!-- Acción para ir de Pantalla 1 a Pantalla "Crear Lista" -->
         <action
             android:id="@+id/action_listasFragment_to_crearListaFragment"
             app:destination="@id/crearListaFragment" />
@@ -34,13 +33,14 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         android:label="Tareas"
         tools:layout="@layout/fragment_tareas">
 
-        <!-- Argumento para recibir el título de la lista -->
+        <!-- Argumento que recibe desde ListasFragment -->
         <argument
             android:name="listTitle"
             app:argType="string"
             android:defaultValue="Lista" />
 
-        <!-- Acción para ir de Pantalla 2 a Pantalla 3 (Crear Tarea) -->
+        <!-- Acción para ir de Pantalla 2 a Pantalla 3 (Crear/Editar Tarea) -->
+        <!-- NOTA: Esta acción ahora también pasará argumentos -->
         <action
             android:id="@+id/action_tareasFragment_to_crearTareaFragment"
             app:destination="@id/crearTareaFragment" />
@@ -51,9 +51,26 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/crearTareaFragment"
         android:name="com.example.tp_final_android.ui.tareas.CrearTareaFragment"
         android:label="Crear Tarea"
-        tools:layout="@layout/fragment_crear_tarea" />
+        tools:layout="@layout/fragment_crear_tarea">
 
-    <!-- FRAGMENTO: Pantalla de "Crear Lista" -->
+        <!--
+         NUEVOS ARGUMENTOS PARA "MODIFICAR TAREA":
+         Recibirá la posición de la tarea y el texto actual.
+         Si taskPosition == -1, es una TAREA NUEVA.
+         Si taskPosition >= 0, es una TAREA EXISTENTE para editar.
+        -->
+        <argument
+            android:name="taskPosition"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="taskText"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+
+    <!-- Pantalla "Crear Lista" (desde Pantalla 1) -->
     <fragment
         android:id="@+id/crearListaFragment"
         android:name="com.example.tp_final_android.ui.listas.CrearListaFragment"
