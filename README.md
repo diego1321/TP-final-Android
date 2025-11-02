@@ -9,7 +9,7 @@ Repositorio para el Trabajo Práctico Final de Android.
 Haz clic en las insignias para ir a los enlaces correspondientes:
 
 <p align="left">
-  <a href="https://www.figma.com/design/cWiu95wvM8imMHEy7WhVIv/TP-Android?node-id=2-11" target="_blank">
+  <a href="https://www.figma.com/design/cWiu95wvM8imMHEy7WhVlv/TP-Android?node-id=2-11&p=f&t=2T41lBTFfeYF6jlB-0" target="_blank">
     <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="Diseño en Figma">
   </a>
   <a href="https://trello.com/invite/b/68eeab97827878b034219aae/ATTId6d640348a41214ab41f22f17844445dB9E1826F/tp-android" target="_blank">
