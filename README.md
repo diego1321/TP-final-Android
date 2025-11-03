@@ -19,3 +19,22 @@ Haz clic en las insignias para ir a los enlaces correspondientes:
     <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="Repositorio en GitHub">
   </a>
 </p>
+
+## App en funcionamiento
+
+<img width="185" height="392" alt="image" src="https://github.com/user-attachments/assets/44244f71-6905-4ac4-86e8-1f7147e5f99c" />
+
+<img width="179" height="388" alt="image" src="https://github.com/user-attachments/assets/ffa4fe5d-bb70-418f-a5df-7b8e689778dd" />
+
+<img width="187" height="391" alt="image" src="https://github.com/user-attachments/assets/da9a2792-1556-4318-a8ab-c53a399c5954" />
+
+<img width="187" height="393" alt="image" src="https://github.com/user-attachments/assets/8340eb1b-3458-4372-a566-6170ae78250b" />
+
+<img width="187" height="392" alt="image" src="https://github.com/user-attachments/assets/68e9139f-9299-425b-a7e4-27ab0f0084b0" />
+
+<img width="187" height="395" alt="image" src="https://github.com/user-attachments/assets/f1836f07-c4b8-40f8-b533-daccec5c6bf1" />
+
+
+
+
+
