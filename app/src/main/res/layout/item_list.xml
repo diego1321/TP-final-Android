@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-Layout para CADA ítem en el RecyclerView de Listas.
-- Reemplazamos el <View> por un <CheckBox> real.
--->
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -28,17 +24,14 @@ Layout para CADA ítem en el RecyclerView de Listas.
             android:textColor="#673AB7"
             android:textAppearance="?attr/textAppearanceTitleMedium"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+
+            android:textAlignment="viewStart" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/checkboxItem"
             android:layout_marginEnd="16dp"
             tools:text="Lista Tareas Universidad" />
 
-        <!--
-        CAMBIO: Este es el CheckBox (tilde) que pide el Figma y el usuario.
-        Le damos el ID "checkboxItem" para controlarlo desde el Adapter.
-        -->
         <CheckBox
             android:id="@+id/checkboxItem"
             android:layout_width="wrap_content"
@@ -52,4 +45,3 @@ Layout para CADA ítem en el RecyclerView de Listas.
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
-

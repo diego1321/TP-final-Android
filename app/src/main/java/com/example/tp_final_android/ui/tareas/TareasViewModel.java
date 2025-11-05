@@ -1,15 +1,29 @@
 package com.example.tp_final_android.ui.tareas;
 
 import androidx.lifecycle.LiveData;
+<<<<<<< HEAD
 import androidx.lifecycle.ViewModel;
 import java.util.List; // Mantener esta importación
 
 /**
  * ViewModel para la pantalla de Tareas (MODIFICADO).
  * Ya no contiene lógica de datos, solo delega al Repositorio.
- */
-public class TareasViewModel extends ViewModel {
+=======
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
+import androidx.lifecycle.ViewModel; // CAMBIO: de AndroidViewModel a ViewModel
+import com.example.tp_final_android.model.Tarea;
+import java.util.List;
 
+/**
+ * ViewModel para Tareas (MODIFICADO PARA DI).
+ * - Extiende ViewModel.
+ * - Recibe el Repositorio en el constructor.
+>>>>>>> e3e3358 (ultimo commit de funcionalidad)
+ */
+public class TareasViewModel extends ViewModel { // CAMBIO
+
+<<<<<<< HEAD
     // 1. Declarar el Repositorio
     private final TareasRepository repository;
 
@@ -67,3 +81,54 @@ public class TareasViewModel extends ViewModel {
         repository.updateTask(position, newText);
     }
 }
+=======
+    private final TareasRepository repository;
+    private final MutableLiveData<Integer> currentListId = new MutableLiveData<>();
+    private final LiveData<List<Tarea>> taskData;
+
+    // CAMBIO: Constructor recibe el Repositorio
+    public TareasViewModel(TareasRepository repository) {
+        this.repository = repository;
+        taskData = Transformations.switchMap(currentListId, id ->
+                repository.getTasksForList(id)
+        );
+    }
+
+    // --- (El resto de la clase no cambia) ---
+
+    public void loadTasksForList(int listId) {
+        currentListId.setValue(listId);
+    }
+
+    public LiveData<List<Tarea>> getTasks() {
+        return taskData;
+    }
+
+    public void addTask(String taskName, String imagePath) {
+        Integer listId = currentListId.getValue();
+        if (taskName.isEmpty() || listId == null) {
+            return;
+        }
+        repository.addTask(taskName, listId, imagePath);
+    }
+
+    public void deleteTask(int position) {
+        List<Tarea> currentList = taskData.getValue();
+        if (currentList != null && position >= 0 && position < currentList.size()) {
+            Tarea tareaParaBorrar = currentList.get(position);
+            repository.deleteTask(tareaParaBorrar);
+        }
+    }
+
+    public void updateTask(int taskId, String newText, String imagePath) {
+        Integer listId = currentListId.getValue();
+        if (newText.isEmpty() || listId == null || taskId == -1) {
+            return;
+        }
+        Tarea updatedTarea = new Tarea(newText, listId, imagePath);
+        updatedTarea.setId(taskId);
+
+        repository.updateTask(updatedTarea);
+    }
+}
+>>>>>>> e3e3358 (ultimo commit de funcionalidad)

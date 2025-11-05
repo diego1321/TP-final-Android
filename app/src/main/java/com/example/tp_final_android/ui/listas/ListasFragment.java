@@ -1,29 +1,27 @@
 package com.example.tp_final_android.ui.listas;
 
+import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.Fragment; // <-- IMPORT FALTANTE
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tp_final_android.R;
+import com.example.tp_final_android.model.Lista;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.List;
 
-/**
- * Fragmento principal que muestra la lista de Check-Lists (Figma 1).
- * Implementa el patrón MVVM usando ListViewModel.java.
- * Usa un RecyclerView y comparte el ViewModel con CrearListaFragment.
- */
 public class ListasFragment extends Fragment implements ListasAdapter.OnListListener {
 
     private ListViewModel viewModel;
@@ -40,30 +38,37 @@ public class ListasFragment extends Fragment implements ListasAdapter.OnListList
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // 1. Inicialización del ViewModel (Compartido con la Activity)
-        // Usamos requireActivity() para que CrearListaFragment pueda acceder a la misma instancia.
-        viewModel = new ViewModelProvider(requireActivity()).get(ListViewModel.class);
+        // CAMBIO: Usar la Fábrica para obtener el ViewModel
+        Application application = requireActivity().getApplication();
+        ListasViewModelFactory factory = new ListasViewModelFactory(application);
+        viewModel = new ViewModelProvider(requireActivity(), factory).get(ListViewModel.class);
 
-        // 2. Inicialización de Vistas
+        // --- Encontrar Vistas ---
         themeSwitch = view.findViewById(R.id.themeSwitch);
         recyclerViewListas = view.findViewById(R.id.recyclerViewListas);
 
-        // 3. Listener para el botón "Crear Lista" (ACTUALIZADO)
+        // --- Listeners de Botones ---
+
+        // Botón "Crear Lista"
         view.findViewById(R.id.btnCreateList).setOnClickListener(v -> {
-            // Navegar a la pantalla CrearListaFragment usando la acción del nav_graph
             NavHostFragment.findNavController(ListasFragment.this)
                     .navigate(R.id.action_listasFragment_to_crearListaFragment);
         });
 
-        // 4. Listener para el Switch de tema claro/oscuro
+        // Botón "Actualizar API"
+        view.findViewById(R.id.btnRefreshListas).setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Actualizando listas desde la API...", Toast.LENGTH_SHORT).show();
+            viewModel.refreshListas();
+        });
+
+        // Switch de Tema
         themeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             viewModel.toggleDarkMode();
         });
 
-        // 5. Configurar el RecyclerView
+        // --- Configurar RecyclerView y Observadores ---
         setupRecyclerView();
 
-        // 6. Observadores de LiveData
         viewModel.getListas().observe(getViewLifecycleOwner(), listas -> {
             adapter.setListas(listas);
         });
@@ -75,49 +80,34 @@ public class ListasFragment extends Fragment implements ListasAdapter.OnListList
         });
     }
 
-    /**
-     * Configura el RecyclerView, su LayoutManager y su Adaptador.
-     */
     private void setupRecyclerView() {
         adapter = new ListasAdapter(this);
         recyclerViewListas.setAdapter(adapter);
         recyclerViewListas.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
-    /**
-     * Método de la interfaz OnListListener: Clic en un ítem de la lista.
-     * Envía el título de la lista a TareasFragment.
-     * @param position La posición del ítem en el que se hizo clic.
-     */
     @Override
     public void onListClick(int position) {
-        List<String> currentList = viewModel.getListas().getValue();
+        List<Lista> currentList = viewModel.getListas().getValue();
         if (currentList != null && position < currentList.size()) {
-            String listTitle = currentList.get(position);
-            Log.d("ListasFragment", "Navegando a Tareas para: " + listTitle);
+            Lista listaSeleccionada = currentList.get(position);
+            String listTitle = listaSeleccionada.getNombre();
+            int listId = listaSeleccionada.getId();
 
-            // Crear Bundle para pasar el título
+            Log.d("ListasFragment", "Navegando a Tareas para: " + listTitle + " (ID: " + listId + ")");
+
             Bundle bundle = new Bundle();
             bundle.putString("listTitle", listTitle);
+            bundle.putInt("listId", listId);
 
-            // Navegar con el bundle
             NavHostFragment.findNavController(ListasFragment.this)
                     .navigate(R.id.action_listasFragment_to_tareasFragment, bundle);
         }
     }
 
-    /**
-     * Método de la interfaz OnListListener: Clic en el CheckBox (para borrar).
-     * @param position La posición del ítem a borrar.
-     */
     @Override
     public void onDeleteClick(int position) {
-        List<String> currentList = viewModel.getListas().getValue();
-        if (currentList != null && position < currentList.size()) {
-            Log.d("ListasFragment", "Eliminando lista: " + currentList.get(position));
-            // Llamar al ViewModel para que borre la lista
-            viewModel.deleteList(position);
-        }
+        Log.d("ListasFragment", "Eliminando lista en posición: " + position);
+        viewModel.deleteList(position);
     }
 }
-

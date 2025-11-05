@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "TP-final-Android"
 include(":app")
- 

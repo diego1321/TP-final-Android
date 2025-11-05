@@ -9,42 +9,32 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.tp_final_android.R; // Asegúrate que el R sea el de tu paquete
+import com.example.tp_final_android.R;
+import com.example.tp_final_android.model.Lista; // Importante
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Adaptador para el RecyclerView de la pantalla de Listas.
- * Conecta la lista de datos (Strings) con las vistas (item_list.xml).
+ * Adaptador para el RecyclerView de Listas (MODIFICADO).
+ * Ahora trabaja con una lista de objetos <Lista> en lugar de <String>.
  */
 public class ListasAdapter extends RecyclerView.Adapter<ListasAdapter.ListasViewHolder> {
 
-    // Lista de datos (Strings) que el adaptador manejará
-    private List<String> listas = new ArrayList<>();
-    // Listener para manejar los eventos de clic
+    // CAMBIO: La lista ahora es de tipo 'Lista'
+    private List<Lista> listas = new ArrayList<>();
+
     private final OnListListener listener;
 
-    /**
-     * Interfaz para manejar los clics en los ítems y en los CheckBox.
-     * El Fragmento (ListasFragment) implementará esta interfaz.
-     */
     public interface OnListListener {
-        void onListClick(int position); // Clic en el ítem (para navegar)
-        void onDeleteClick(int position); // Clic en el CheckBox (para borrar)
+        void onListClick(int position);
+        void onDeleteClick(int position);
     }
 
-    /**
-     * Constructor del adaptador.
-     * @param listener El fragmento que escucha los eventos de clic.
-     */
     public ListasAdapter(OnListListener listener) {
         this.listener = listener;
     }
 
-    /**
-     * Se llama cuando el RecyclerView necesita un nuevo ViewHolder (una nueva fila).
-     * Infla el layout (item_list.xml) y lo pasa al constructor del ViewHolder.
-     */
     @NonNull
     @Override
     public ListasViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -54,70 +44,57 @@ public class ListasAdapter extends RecyclerView.Adapter<ListasAdapter.ListasView
     }
 
     /**
-     * Se llama cuando el RecyclerView quiere rellenar una fila (ViewHolder) con datos.
-     * Obtiene el dato (String) de la posición y lo asigna al TextView del ViewHolder.
+     * Rellena la fila (ViewHolder) con datos.
+     * Obtiene el objeto 'Lista' y usa su nombre.
      */
     @Override
     public void onBindViewHolder(@NonNull ListasViewHolder holder, int position) {
-        String listName = listas.get(position);
-        holder.listNameTextView.setText(listName);
-        // Asegurarse de que el CheckBox esté tildado por defecto
+        // CAMBIO: Obtener el objeto 'Lista'
+        Lista currentLista = listas.get(position);
+        // CAMBIO: Usar el getter para el nombre
+        holder.listNameTextView.setText(currentLista.getNombre());
+
         holder.checkboxItem.setChecked(true);
     }
 
-    /**
-     * Devuelve la cantidad total de ítems en la lista de datos.
-     */
     @Override
     public int getItemCount() {
         return listas.size();
     }
 
     /**
-     * Método para actualizar la lista de datos del adaptador desde el ViewModel.
-     * Notifica al RecyclerView que los datos han cambiado.
+     * Método para actualizar la lista de datos del adaptador.
+     * CAMBIO: Acepta una lista de tipo 'Lista'.
      */
-    public void setListas(List<String> nuevasListas) {
+    public void setListas(List<Lista> nuevasListas) {
         this.listas = nuevasListas;
-        notifyDataSetChanged(); // Recarga toda la lista (simple, pero efectivo)
+        notifyDataSetChanged();
     }
 
     // --- ViewHolder ---
 
-    /**
-     * Clase interna que representa CADA fila individual (ítem) en la lista.
-     * Contiene las referencias a las vistas (TextView, CheckBox) dentro de item_list.xml.
-     */
     public static class ListasViewHolder extends RecyclerView.ViewHolder {
 
         public TextView listNameTextView;
         public CheckBox checkboxItem;
 
-        /**
-         * Constructor del ViewHolder.
-         * Encuentra las vistas por su ID y configura los listeners de clic.
-         */
         public ListasViewHolder(@NonNull View itemView, OnListListener listener) {
             super(itemView);
-            // 1. Encontrar las vistas dentro del item_list.xml
             listNameTextView = itemView.findViewById(R.id.listName);
-            checkboxItem = itemView.findViewById(R.id.checkboxItem); // ID del CheckBox
+            checkboxItem = itemView.findViewById(R.id.checkboxItem);
 
-            // Configurar el tinte del CheckBox (morado)
             ColorStateList colorStateList = new ColorStateList(
                     new int[][]{
-                            new int[]{-android.R.attr.state_checked}, // no tildado (nunca pasa)
-                            new int[]{android.R.attr.state_checked}  // tildado
+                            new int[]{-android.R.attr.state_checked},
+                            new int[]{android.R.attr.state_checked}
                     },
                     new int[]{
-                            Color.GRAY,  // Color si no estuviera tildado
-                            Color.parseColor("#673AB7") // Color morado cuando está tildado
+                            Color.GRAY,
+                            Color.parseColor("#673AB7")
                     }
             );
             checkboxItem.setButtonTintList(colorStateList);
 
-
-            // 2. Configurar el listener para el clic EN EL ÍTEM (para navegar)
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 if (listener != null && position != RecyclerView.NO_POSITION) {
@@ -125,11 +102,9 @@ public class ListasAdapter extends RecyclerView.Adapter<ListasAdapter.ListasView
                 }
             });
 
-            // 3. Configurar el listener para el clic EN EL CHECKBOX (para borrar)
             checkboxItem.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 if (listener != null && position != RecyclerView.NO_POSITION) {
-                    // Solo llamar a borrar SI el usuario lo está DESTILDANDO
                     if (!checkboxItem.isChecked()) {
                         listener.onDeleteClick(position);
                     }
@@ -138,4 +113,3 @@ public class ListasAdapter extends RecyclerView.Adapter<ListasAdapter.ListasView
         }
     }
 }
-

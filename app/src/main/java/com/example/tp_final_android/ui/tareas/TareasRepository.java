@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.example.tp_final_android.ui.tareas; 
 
 import androidx.lifecycle.LiveData;
@@ -78,3 +79,49 @@ public class TareasRepository {
         }
     }
 }
+=======
+package com.example.tp_final_android.ui.tareas;
+
+import androidx.lifecycle.LiveData;
+import com.example.tp_final_android.model.AppDatabase; // <-- EL IMPORT CLAVE
+import com.example.tp_final_android.model.Tarea;
+import com.example.tp_final_android.model.TareaDao;
+import java.util.List;
+
+/**
+ * REPOSITORY de Tareas (MODIFICADO PARA DI).
+ * Ahora recibe TareaDao en el constructor.
+ */
+public class TareasRepository {
+
+    private TareaDao mTareaDao;
+
+    // CAMBIO: Constructor ahora recibe dependencias
+    public TareasRepository(TareaDao tareaDao) {
+        mTareaDao = tareaDao;
+    }
+
+    public LiveData<List<Tarea>> getTasksForList(int listId) {
+        return mTareaDao.getTasksForList(listId);
+    }
+
+    public void addTask(String taskName, int listId, String imagePath) {
+        Tarea newTarea = new Tarea(taskName, listId, imagePath);
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            mTareaDao.insert(newTarea);
+        });
+    }
+
+    public void deleteTask(Tarea tarea) {
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            mTareaDao.delete(tarea);
+        });
+    }
+
+    public void updateTask(Tarea tarea) {
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            mTareaDao.update(tarea);
+        });
+    }
+}
+>>>>>>> e3e3358 (ultimo commit de funcionalidad)

@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-Este es el layout para CADA ítem individual en el RecyclerView de TAREAS.
-Basado en "Figma 2" (image_8ae403.png).
--->
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -22,6 +18,16 @@ Basado en "Figma 2" (image_8ae403.png).
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
+        <ImageView
+            android:id="@+id/ivTieneFotoIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/ic_menu_crop"
+            app:tint="?attr/colorPrimary"
+            android:layout_marginEnd="8dp"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
         <TextView
             android:id="@+id/taskName"
             android:layout_width="0dp"
@@ -37,5 +43,4 @@ Basado en "Figma 2" (image_8ae403.png).
             android:buttonTint="?attr/colorPrimary" />
 
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>

@@ -1,57 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <!--
 Define el flujo de navegación de la aplicación.
 -->
+=======
+>>>>>>> e3e3358 (ultimo commit de funcionalidad)
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/listasFragment">
+    app:startDestination="@id/routerFragment"> <fragment
+    android:id="@+id/routerFragment"
+    android:name="com.example.tp_final_android.ui.RouterFragment"
+    android:label="Router">
 
-    <!-- Pantalla 1: ListasFragment -->
+    <action
+        android:id="@+id/action_routerFragment_to_onboardingFragment"
+        app:destination="@id/onboardingFragment"
+        app:popUpTo="@id/routerFragment"
+        app:popUpToInclusive="true" /> <action
+    android:id="@+id/action_routerFragment_to_listasFragment"
+    app:destination="@id/listasFragment"
+    app:popUpTo="@id/routerFragment"
+    app:popUpToInclusive="true" /> </fragment>
+
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.example.tp_final_android.ui.OnboardingFragment"
+        android:label="Bienvenido"
+        tools:layout="@layout/fragment_onboarding" />
+
+    <action
+        android:id="@+id/action_global_go_to_listasFragment"
+        app:destination="@id/listasFragment"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="true" />
+
     <fragment
         android:id="@+id/listasFragment"
         android:name="com.example.tp_final_android.ui.listas.ListasFragment"
         android:label="Listas"
         tools:layout="@layout/fragment_listas">
-
-        <!-- Acción para ir de Pantalla 1 a Pantalla 2 (Tareas) -->
         <action
             android:id="@+id/action_listasFragment_to_tareasFragment"
             app:destination="@id/tareasFragment" />
+<<<<<<< HEAD
 
         <!-- Acción para ir de Pantalla 1 a Pantalla "Crear Lista" -->
+=======
+>>>>>>> e3e3358 (ultimo commit de funcionalidad)
         <action
             android:id="@+id/action_listasFragment_to_crearListaFragment"
             app:destination="@id/crearListaFragment" />
     </fragment>
 
-    <!-- Pantalla 2: TareasFragment -->
     <fragment
         android:id="@+id/tareasFragment"
         android:name="com.example.tp_final_android.ui.tareas.TareasFragment"
         android:label="Tareas"
         tools:layout="@layout/fragment_tareas">
+<<<<<<< HEAD
 
         <!-- Argumento que recibe desde ListasFragment -->
+=======
+>>>>>>> e3e3358 (ultimo commit de funcionalidad)
         <argument
             android:name="listTitle"
             app:argType="string"
             android:defaultValue="Lista" />
+<<<<<<< HEAD
 
         <!-- Acción para ir de Pantalla 2 a Pantalla 3 (Crear/Editar Tarea) -->
         <!-- NOTA: Esta acción ahora también pasará argumentos -->
+=======
+        <argument
+            android:name="listId"
+            app:argType="integer" />
+>>>>>>> e3e3358 (ultimo commit de funcionalidad)
         <action
             android:id="@+id/action_tareasFragment_to_crearTareaFragment"
             app:destination="@id/crearTareaFragment" />
     </fragment>
 
-    <!-- Pantalla 3: CrearTareaFragment -->
     <fragment
         android:id="@+id/crearTareaFragment"
         android:name="com.example.tp_final_android.ui.tareas.CrearTareaFragment"
         android:label="Crear Tarea"
         tools:layout="@layout/fragment_crear_tarea">
+<<<<<<< HEAD
 
         <!--
          NUEVOS ARGUMENTOS PARA "MODIFICAR TAREA":
@@ -71,6 +107,24 @@ Define el flujo de navegación de la aplicación.
     </fragment>
 
     <!-- Pantalla "Crear Lista" (desde Pantalla 1) -->
+=======
+        <argument
+            android:name="taskId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="taskText"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="taskImagePath"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+
+>>>>>>> e3e3358 (ultimo commit de funcionalidad)
     <fragment
         android:id="@+id/crearListaFragment"
         android:name="com.example.tp_final_android.ui.listas.CrearListaFragment"
@@ -78,4 +132,3 @@ Define el flujo de navegación de la aplicación.
         tools:layout="@layout/fragment_crear_lista" />
 
 </navigation>
-
