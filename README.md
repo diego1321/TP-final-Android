@@ -1,5 +1,9 @@
 # TP-final-Android
 
+Desarrollo de Aplicaciones para Dispositivos Móviles
+Trabajo Práctico Grupal Integrador
+Integrantes del grupo: Juan Cruz Novoa y Diego Prieto
+
 Repositorio para el Trabajo Práctico Final de Android.
 
 ## 🛠️ Herramientas y Diseño
