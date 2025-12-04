@@ -63,8 +63,6 @@
             android:layout_marginStart="8dp"/>
 
     </LinearLayout>
-
-
     <!-- RecyclerView (constreñido al nuevo contenedor de botones) -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewTareas"
