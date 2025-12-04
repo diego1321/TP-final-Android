@@ -24,17 +24,23 @@ Haz clic en las insignias para ir a los enlaces correspondientes:
 
 ## App en funcionamiento
 
-<img width="185" height="392" alt="image" src="https://github.com/user-attachments/assets/44244f71-6905-4ac4-86e8-1f7147e5f99c" />
+<img width="161" height="343" alt="image" src="https://github.com/user-attachments/assets/8d4a14d8-2f90-4ca4-8936-3eaeeaa7a123" />
 
-<img width="179" height="388" alt="image" src="https://github.com/user-attachments/assets/ffa4fe5d-bb70-418f-a5df-7b8e689778dd" />
+<img width="164" height="341" alt="image" src="https://github.com/user-attachments/assets/013feb2f-b9e7-43c8-93c6-11e9b8c333bf" />
 
-<img width="187" height="391" alt="image" src="https://github.com/user-attachments/assets/da9a2792-1556-4318-a8ab-c53a399c5954" />
+<img width="166" height="344" alt="image" src="https://github.com/user-attachments/assets/da18b58f-87be-41cb-9a52-7ade23c33f88" />
 
-<img width="187" height="393" alt="image" src="https://github.com/user-attachments/assets/8340eb1b-3458-4372-a566-6170ae78250b" />
+<img width="161" height="341" alt="image" src="https://github.com/user-attachments/assets/09cbd68f-79bf-42f7-93f1-8442464b2bbf" />
 
-<img width="187" height="392" alt="image" src="https://github.com/user-attachments/assets/68e9139f-9299-425b-a7e4-27ab0f0084b0" />
+<img width="158" height="341" alt="image" src="https://github.com/user-attachments/assets/35a01ebb-90a4-45b1-8655-90d0b41b539d" />
 
-<img width="187" height="395" alt="image" src="https://github.com/user-attachments/assets/f1836f07-c4b8-40f8-b533-daccec5c6bf1" />
+<img width="153" height="320" alt="image" src="https://github.com/user-attachments/assets/7afa7587-cc71-44e7-b378-187e6f9d2729" />
+
+
+
+
+
+
 
 
 
